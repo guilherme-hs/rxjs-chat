@@ -1,0 +1,11 @@
+.chat-window{
+  bottom: 0;
+  right: 0;
+  position: fixed;
+  float: right;
+  margin-left: 10px;
+}
+
+.panel{
+  border-radius: 5px 5px 0 0;
+}

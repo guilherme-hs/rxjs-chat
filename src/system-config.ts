@@ -9,10 +9,18 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
+  'underscore': 'vendor/underscore/underscore.js',
+  'moment': 'vendor/moment/moment.js'
 };
 
 /** User packages configuration. */
 const packages: any = {
+  'underscore':{
+    format: 'cjs'
+  },
+  'moment':{
+    format: 'cjs'
+  }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +44,10 @@ const barrels: string[] = [
   // App specific barrels.
   'app',
   'app/shared',
+  'app/chat-threads',
+  'app/chat-thread',
+  'app/chat-window',
+  'app/chat-message',
   /** @cli-barrel */
 ];
 

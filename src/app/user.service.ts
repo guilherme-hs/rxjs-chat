@@ -5,7 +5,7 @@ import {User} from "./user";
 @Injectable()
 export class UserService {
 
-  private currentUser: Subject<User> = new BehaviorSubject<User>(null);
+  currentUser: Subject<User> = new BehaviorSubject<User>(null);
 
   constructor() {
     console.log('Initializing UserService...');

@@ -24,6 +24,8 @@ export class MessageService {
 
   create:Subject<Message> = new Subject<Message>();
 
+  markThreadAsRead: Subject<any> = new Subject<any>();
+
 
   constructor() {
     console.log('Initializing MessageService...');
@@ -33,15 +35,33 @@ export class MessageService {
       },this.initialMessages)
       .publishReplay(1)
       .refCount();
-    this.newMessages.subscribe(this.create);
-  };
-
-  addMessage(message:Message){
     this.create
       .map(function (message:Message): IMessagesOperation{
+        console.log('Adding Message to create:', message);
         return (messages:Message[]) => messages.concat(message)
       })
       .subscribe(this.updates);
+    this.newMessages.subscribe(this.create);
+    this.markThreadAsRead
+      .map( (thread: Thread) => {
+        return (messages: Message[]) => {
+          return messages.map( (message: Message) => {
+            // note that we're manipulating `message` directly here. Mutability
+            // can be confusing and there are lots of reasons why you might want
+            // to, say, copy the Message object or some other 'immutable' here
+            if (message.thread.id === thread.id) {
+              message.isRead = true;
+            }
+            return message;
+          });
+        };
+      })
+      .subscribe(this.updates);
+
+  };
+
+  addMessage(message: Message): void {
+    this.newMessages.next(message);
   }
 
   messagesForThreadUser(thread: Thread, user:User):Observable<Message>{
@@ -50,5 +70,7 @@ export class MessageService {
         return (message.thread.id === thread.id) && (message.author.id !== user.id);
       })
   }
+
+
 
 }
