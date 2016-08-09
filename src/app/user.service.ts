@@ -12,7 +12,7 @@ export class UserService {
   }
 
   setCurrentUser(newUser:User){
-    console.log(`Setting the current user to:`,newUser);
+    // console.log(`Setting the current user to:`,newUser);
     this.currentUser.next(newUser);
   }
 }

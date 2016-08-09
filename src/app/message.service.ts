@@ -37,7 +37,6 @@ export class MessageService {
       .refCount();
     this.create
       .map(function (message:Message): IMessagesOperation{
-        console.log('Adding Message to create:', message);
         return (messages:Message[]) => messages.concat(message)
       })
       .subscribe(this.updates);

@@ -19,6 +19,7 @@ export class ThreadService {
   currentThread: Subject<Thread> = new BehaviorSubject<Thread>(new Thread());
 
   setCurrentThread(newThread:Thread):void{
+    console.log('Setting the current Thread to:',newThread);
     this.currentThread.next(newThread);
   }
 
@@ -40,8 +41,7 @@ export class ThreadService {
       });
     this.orderedThreads = this.threads.map((threadGroups: {[key:string]:Thread}) => {
       let threads: Thread[] = _.values(threadGroups);
-      console.log('Ordered Threads:',_.sortBy(threads, (t:Thread) => t.lastMessage.sentAt).reverse())
-      return _.sortBy(threads, (t:Thread) => t.lastMessage.sentAt).reverse()
+      return _.sortBy(threads, (t:Thread) => t.lastMessage.sentAt).reverse();
     });
     this.currentThread.subscribe(this.messageService.markThreadAsRead);
 

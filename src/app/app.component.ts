@@ -94,7 +94,6 @@ export class ChatExampleData {
       messageService.addMessage(message);
     } );
 
-    console.log('threadsService:', threadsService);
     threadsService.setCurrentThread(tEcho);
 
     this.setupBots(messageService);
@@ -114,7 +113,6 @@ export class ChatExampleData {
           );
         },
         null);
-
 
     // reverse bot
     messagesService.messagesForThreadUser(tRev, rev)

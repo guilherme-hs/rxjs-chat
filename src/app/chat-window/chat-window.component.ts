@@ -30,28 +30,29 @@ export class ChatWindowComponent implements OnInit {
               public threadService:ThreadService,
               public userService:UserService,
               public el:ElementRef) {
-    this.threadserv = threadService;
-    this.threadserv.currentThread.subscribe((thread:Thread) => {
-      console.log('Notified on:', thread);
+    // this.threadserv = threadService;
+    this.currentThread = new Thread('some thread','some name');
+    threadService.orderedThreads.subscribe((threads:Thread[]) => {
+      console.log('Notified on:', threads);
     })
   }
 
   ngOnInit() {
-    console.log('Thread')
-    this.messages = this.threadService.currentThreadMessages;
+
+    // this.messages = this.threadService.currentThreadMessages;
+    // this.threadService.currentThread.subscribe((thread:Thread) => {
+    //   console.log(`Current Thread on Chat Window set to: `, thread);
+    //   this.currentThread = thread;
+    // });
     this.draftMessage = new Message();
-    this.threadService.currentThread.subscribe((thread:Thread) => {
-      console.log(`Current Thread on Chat Window set to: `, thread);
-      this.currentThread = thread;
-    });
-    this.userService.currentUser.subscribe((user: User) => {
-      this.currentUser = user
-    });
-    this.messages.subscribe((messages:Message[]) => {
-      setTimeout(() => {
-        this.scrollToBottom();
-      });
-    });
+    // this.userService.currentUser.subscribe((user: User) => {
+    //   this.currentUser = user
+    // });
+    // this.messages.subscribe((messages:Message[]) => {
+    //   setTimeout(() => {
+    //     this.scrollToBottom();
+    //   });
+    // });
   }
 
   sendMessage():void{
